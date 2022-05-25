@@ -1,0 +1,639 @@
+// Styling Cross-Browser Compatible Range Inputs with Sass
+// Github: https://github.com/darlanrod/input-range-sass
+// Author: Darlan Rod https://github.com/darlanrod
+// Version 1.5.2
+// MIT License
+// https://github.com/darlanrod/input-range-scss/blob/master/_inputrange.scss
+
+
+//line-height: 18px;
+
+
+$track-color: #eceff1 !default;
+$thumb-color: rgba(0, 0, 0, .6) !default;
+
+$thumb-radius: 10px !default;
+$thumb-height: 13px !default;
+$thumb-width: 13px !default;
+$thumb-shadow-size: 0 !default;
+$thumb-shadow-blur: 0 !default;
+$thumb-shadow-color: rgba(0, 0, 0, 0) !default;
+$thumb-border-width: 0 !default;
+$thumb-border-color: #eceff1 !default;
+
+$track-width: 301px !default;
+$track-height: 23px !default;
+$track-buffer: 4px !default;
+$track-shadow-size: 0 !default;
+$track-shadow-blur: 0 !default;
+$track-shadow-color: rgba(0, 0, 0, 0) !default;
+$track-border-width: 0 !default;
+$track-border-color: #cfd8dc !default;
+
+$track-radius: 23px !default;
+$contrast: 5% !default;
+
+$video-stim-width: 787px !default;
+$video-stim-height: 576px !default;
+
+$video-stim-container-width: 815px !default;
+
+$video-mini-width: 300px !default;
+$video-mini_width-buffer: 21px !default;
+//$ie-bottom-track-color: darken($track-color, $contrast) !default;
+
+@mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
+  //0 1px 0 hsla(0, 0%, 100%, .6)
+  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+}
+
+@mixin noshadow {
+  //0 1px 0 hsla(0, 0%, 100%, .6)
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0);
+}
+
+@mixin track {
+  cursor: default;
+  height: $track-height;
+  width: $track-width;
+  //transition: all .2s ease;
+  /* Sigma MARKS pixes 49 151 253*/
+  background: -webkit-repeating-linear-gradient(left, hsl(0, 0%, 55%) 0px, hsl(0, 0%, 55%) 48px, hsl(0, 0%, 80%) 48px, hsl(0, 0%, 80%) 49px, hsl(0, 0%, 55%) 50px, hsl(0, 0%, 55%) 150px, hsl(0, 0%, 70%) 150px, hsl(0, 0%, 70%) 152px, hsl(0, 0%, 55%) 152px, hsl(0, 0%, 55%) 252px, hsl(0, 0%, 80%) 252px, hsl(0, 0%, 80%) 253px, hsl(0, 0%, 55%) 254px, hsl(0, 0%, 55%) 301px);
+  //background: repeating-linear-gradient(to right, hsl(0, 0%, 55%) 0px, hsl(0, 0%, 55%) 48px, hsl(0, 0%, 80%) 48px, hsl(0, 0%, 80%) 49px, hsl(0, 0%, 55%) 50px, hsl(0, 0%, 55%) 150px, hsl(0, 0%, 70%) 150px, hsl(0, 0%, 70%) 152px, hsl(0, 0%, 55%) 152px, hsl(0, 0%, 55%) 252px, hsl(0, 0%, 80%) 252px, hsl(0, 0%, 80%) 253px, hsl(0, 0%, 55%) 254px, hsl(0, 0%, 55%) 301px);
+}
+
+@mixin thumb {
+  //@include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+  @include noshadow;
+  background: $thumb-color;
+  border: $thumb-border-width solid $thumb-border-color;
+  border-radius: $thumb-radius;
+  box-sizing: border-box;
+  cursor: default;
+  height: $thumb-height;
+  width: $thumb-width;
+}
+
+@mixin disabletextselect {
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+[type='range'] {
+  -webkit-appearance: none;
+  background: transparent;
+  //margin: $thumb-height / 2 0;
+  //margin: 0 0; //***
+  width: $track-width;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  //margin-right: -50%;
+  margin-left: 0;
+  margin-right: 0;
+  transform: translate(-50%, -50%);
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &:focus {
+    outline: 0;
+
+    //&::-webkit-slider-runnable-track {
+    //    background: lighten($track-color, $contrast);
+    //}
+    //
+    //&::-ms-fill-lower {
+    //    background: $track-color;
+    //}
+    //
+    //&::-ms-fill-upper {
+    //    background: lighten($track-color, $contrast);
+    //}
+  }
+
+  &::-webkit-slider-runnable-track {
+    @include track;
+    //@include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    @include noshadow;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+  }
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+    margin-top: ((-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2);
+  }
+
+  &::-moz-range-track {
+    //@include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    @include noshadow;
+    @include track;
+    //background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+    //height: $track-height / 2; //***
+    height: $track-height; //***
+    //background: -webkit-repeating-linear-gradient(left, hsl(0, 0%, 55%) 0px, hsl(0, 0%, 55%) 48px, hsl(0, 0%, 80%) 48px, hsl(0, 0%, 80%) 49px, hsl(0, 0%, 55%) 50px, hsl(0, 0%, 55%) 150px, hsl(0, 0%, 70%) 150px, hsl(0, 0%, 70%) 152px, hsl(0, 0%, 55%) 152px, hsl(0, 0%, 55%) 252px, hsl(0, 0%, 80%) 252px, hsl(0, 0%, 80%) 253px, hsl(0, 0%, 55%) 254px, hsl(0, 0%, 55%) 301px); //***
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &::-ms-track {
+    @include track;
+    background: transparent;
+    border-color: transparent;
+    border-width: ($thumb-height / 2) 0;
+    color: transparent;
+  }
+
+  &::-ms-fill-lower {
+    //@include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    @include noshadow;
+    //background: $ie-bottom-track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: ($track-radius * 2);
+  }
+
+  &::-ms-fill-upper {
+    //@include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    @include noshadow;
+    background: $track-color;
+    border: $track-border-width solid $track-border-color;
+    border-radius: ($track-radius * 2);
+  }
+
+  &::-ms-thumb {
+    @include thumb;
+    margin-top: $track-height / 4;
+  }
+
+  &:disabled {
+    &::-webkit-slider-thumb,
+    &::-moz-range-thumb,
+    &::-ms-thumb,
+    &::-webkit-slider-runnable-track,
+    &::-ms-fill-lower,
+    &::-ms-fill-upper {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.not-touched {
+  @extend [type='range'];
+
+  &::-webkit-slider-thumb {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  &::-moz-range-thumb {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  &::-ms-thumb {
+    background: rgba(0, 0, 0, 0);
+  }
+
+}
+
+.slider {
+  position: relative;
+
+  &.label-untouched {
+    color: hsla(0, 0%, 100%, 1);
+  }
+
+  &.label-touched {
+    color: hsla(0, 0%, 100%, .40);
+  }
+
+  &:hover {
+    color: hsla(0, 0%, 100%, 0);
+    /*transition: [transition-property] [transition-duration] [transition-timing-function] [transition-delay];*/
+    transition: color .1s ease-in 0s;
+    /* On-mouse-down fade to transparent */
+  }
+
+  &:active {
+    color: hsla(0, 0%, 100%, 0);
+    /*transition: [transition-property] [transition-duration] [transition-timing-function] [transition-delay];*/
+    transition: color .2s ease-in 0s;
+    /* On-mouse-down fade to transparent */
+  }
+}
+
+.range-emotion-label {
+  font-family: Verdana, Geneva, sans-serif;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 99;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  pointer-events: none;
+  line-height: 0; ///**
+}
+
+
+.eFloor {
+  @include disabletextselect;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: .8em;
+  font-style: italic;
+  color: black;
+  letter-spacing: 0;
+  text-align: right;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.eCeiling {
+  @include disabletextselect;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: .8em;
+  font-style: italic;
+  color: black;
+  letter-spacing: 0;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.eFloorLarger {
+  @include disabletextselect;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.3em;
+  font-style: italic;
+  color: black;
+  letter-spacing: 0;
+  text-align: right;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.eCeilingLarger {
+  @include disabletextselect;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 1.3em;
+  font-style: italic;
+  color: black;
+  letter-spacing: 0;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+#responsesTable {
+  @include disabletextselect;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.emotionRatingRow {
+  @include disabletextselect;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  height: $track-height + (2 * $track-buffer);
+}
+
+
+.emotionRatingCell {
+  @include disabletextselect;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  height: $track-height + (2 * $track-buffer);
+  width: $track-width;
+}
+
+.emotionAnchorCell {
+  @include disabletextselect;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  height: $track-height + (2 * $track-buffer);
+  white-space: nowrap;
+}
+
+.emotionRatingCellSliderContainer {
+  @include disabletextselect;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  height: $track-height + (2 * $track-buffer);
+  width: $track-width;
+}
+
+.responseTableFrame {
+  @include disabletextselect;
+  border-radius: 25px;
+  border: 5px solid #636363;
+  padding: 10px;
+  //margin: 0 auto;
+  //overflow: hidden;
+  background-color: white;
+  //border-collapse: collapse;
+}
+
+.responsesDivSliders {
+  @include disabletextselect;
+  //line-height: 0; ///**
+}
+
+.responseEncouragement {
+  @include disabletextselect;
+  font-family: Verdana, Geneva, sans-serif;
+  color: black;
+  text-align: center;
+  font-weight: 700;
+}
+
+.responseTableHeader2 {
+  visibility: hidden;
+}
+
+.eventDescriptText {
+  @include disabletextselect;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 900;
+  letter-spacing: 0;
+  pointer-events: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.eventDescriptTextContainer {
+  @include disabletextselect;
+  height: 25px;
+  text-align: center;
+}
+
+#videoStim_training {
+  width: 787px;
+  height: 576px;
+}
+
+#videoStim_small {
+  width: 300px;
+  height: 219px;
+}
+
+.disable-select {
+  @include disabletextselect;
+}
+
+.buttonNext {
+  border: 0;
+  border-radius: 0.25rem;
+  background: #1E88E5;
+  color: black;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  vertical-align: text-top;
+
+  &:disabled {
+    background: #00315b;
+  }
+
+  &:enabled {
+    &:hover {
+      border: 0;
+      background: #55a1e3;
+    }
+
+    &:active {
+      border: 0;
+      color: #565656;
+      background: #55a1e3;
+    }
+  }
+
+  &--inactive {
+    @extend .buttonNext;
+    background: #00315b;
+  }
+}
+
+.buttonContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  vertical-align: text-top;
+}
+
+#RespSet {
+  position: relative;
+  width: $video-mini-width + (2 * $video-mini_width-buffer);
+}
+
+#responseCuesTableFrameID {
+  width: $video-mini-width + (2 * $video-mini_width-buffer);
+  height: 100%;
+  position: absolute;
+  //right: 0;
+  //top: 0;
+}
+
+#RespSetFlex {
+  width: $video-mini-width + (2 * $video-mini_width-buffer);
+
+  display: flex;
+  //justify-content: space-around;
+  //align-items: flex-start;
+
+  border: 2px dashed rgba(114, 186, 94, 0.35);
+
+  //overflow: visible;
+}
+
+#responseCuesTableFrameIDFlex {
+  width: $video-mini-width + (2 * $video-mini_width-buffer);
+  //position: -webkit-sticky;
+  //position: sticky;
+  //top: 4rem;
+}
+
+.slideCenter {
+  margin: inherit;
+  max-width: 1000px;
+}
+
+.tableCenter {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#videoStimPackageTable {
+  width: $video-stim-width;
+  height: $video-stim-height;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  text-align: center;
+  margin: auto;
+  //vertical-align: middle;
+  //margin-left: auto;
+  //margin-right: auto;
+}
+
+#responseDivCues1 {
+  width: $video-stim-container-width;
+  line-height: $video-stim-height;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  text-align: center;
+  vertical-align: bottom;
+  overflow: visible;
+  background: black;
+  color: white;
+}
+
+//#divTable_stimuli{
+//    margin-left: auto;
+//    margin-right: auto;
+//}
+
+.videoStimFramingDivClass {
+  margin: 0 auto;
+  border-radius: 25px;
+  padding: 0;
+  height: $video-stim-height;
+  width: $video-stim-container-width;
+  background-color: black;
+  display: block;
+  overflow: hidden;
+
+  &.videoframe-paused {
+    border: 5px solid #636363;
+  }
+
+  &.videoframe-running {
+    border: 5px solid #FFFFFF;
+  }
+}
+
+#videoStimPackageTable_training { /// not necessary but here for safety
+  @include disabletextselect;
+  border: 0;
+  padding: 0;
+  border-collapse: collapse;
+  min-width: $video-stim-width;
+  min-height: $video-stim-height;
+  margin: auto;
+}
+
+.loadingText {
+  line-height: 12px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0;
+  pointer-events: none;
+  text-align: center;
+  color: rgb(153, 153, 153);
+}
+
+#playButtonContainer {
+  margin: auto;
+}
+
+.tableCenter {
+  margin: auto;
+}
+
+
+#videoLoadingDiv {
+  height: 100px;
+  max-height: 100px;
+  margin: auto;
+  text-align: center;
+  color: black;
+  background: white;
+  overflow: visible;
+  max-width: $video-stim-width - 20;
+}
+
+.blackText {
+  color: black;
+}
+
+.greyText {
+  color: hsl(0, 0%, 55%);
+}
+
+.whiteText {
+  color: white;
+}
+
+.blackBG {
+  background-color: black;
+  font-family: Verdana, Geneva, sans-serif;
+  color: white;
+}
+
+.whiteBG {
+  background-color: white;
+  font-family: Verdana, Geneva, sans-serif;
+  color: black;
+}
+
+input[type=text]:focus {
+  border: 3px solid #55bcdd;
+}
+
+.textResponse {
+  width: 80%;
+  min-width: 300px;
+}
+
+#finalTable {
+  text-align: center;
+  max-width: 1000px;
+}
+
+.textLeft {
+  text-align: left;
+}
+
+.textRight {
+  text-align: right;
+}
+
+.somePadding {
+  @include disabletextselect;
+  white-space: nowrap;
+  max-width: 900px;
+  border-spacing: 25px 10px;
+  overflow: visible;
+}
+
+.fin_table1 {
+  @include disabletextselect;
+  width: 100%;
+  max-width: 900px;
+  border-spacing: 25px 10px;
+  overflow: visible;
+}

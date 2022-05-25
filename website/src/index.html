@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Emotion Reasoning - CogSci2022</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div class="outer blackBG"> <!--style="z-index: 200;"-->
+  <div class="middle">
+
+    <div id="entrysplash" class="slideDiv slide-focused">
+
+      <h1>Reasoning about the antecedents of emotions:</h1>
+      <h2>Bayesian causal inference over an intuitive theory of mind</h2>
+
+      <span style="font-size: 144%;">. . .<br>All of the raw behavioral data, analyses, and models related to this submission are available on the github repository:<br> <strong><a href="https://github.com/daeh/emotionreasoning-cogsci22">https://github.com/daeh/emotionreasoning-cogsci22</a></strong>.<br>. . .<br></span>
+
+      <br><br>
+
+
+      <hr>
+
+      <br>
+      <div class="textbox">
+        <img id="splashimg" class="scaledown" src="./assets/images/splash-thumbnail.png" alt="project splash" />
+      </div>
+      <br>
+
+      <div class="textbox">
+      <p>
+        We artificially separated the perceptual information from context information in recordings of a televised British gameshow called <i>Golden Balls</i>.
+        Every episode of <i>Golden Balls</i> culminates with two contestants playing a dramatic one-shot instantiation of the Prisoner's Dilemma. Each player is given a choice to "Split" or "Steal" a jackpot (in standard Prisoner's Dilemma notation, to "Cooperate" or "Defect", respectively). If both decide to Cooperate, they each receive half of the jackpot.
+        If one player instead chooses Defect, that player wins the entire jackpot and the other player who chose Cooperate leaves with nothing.
+        If both players choose Defect, both get nothing.
+        Players negotiate with each other in front of a live audience in an attempt to convince the other to make a choice that is financially disadvantageous (to Cooperate).
+        Each player makes a decision in private, then they simultaneously reveal their choices, all while being filmed.
+        </p>
+
+      <p>
+        The game is emotionally evocative by design. When the choices are revealed, players discover whether they have won or lost real and often substantial sums of money; and whether they have successfully cooperated, successfully duped, been duped by, or failed to dupe the other player. The TV cameras capture their spontaneous unscripted dynamic expressions, including changes of posture and expression of players' faces, shoulders, upper bodies, and hands.
+        </p>
+
+      <p>
+        We generated 88 videos of players who participated in the final round of the 5th season of the Golden Balls gameshow, which aired in 2009 (footage of the show was provided by Endemol UK). Videos were 5 seconds in duration, each depicting a single player's expressions, by splicing together footage from the moments surrounding the climactic reveal.
+        The four outcomes were represented equally in the stimuli (N=22 for each outcome), reflecting the true distribution of play---across all 287 broadcast episodes, players were 53% likely to Cooperate, and the decisions of a player dyad (the two opposing players in the game) were statistically independent of each other.
+        Each video silently showed a single person anticipating and reacting to a game outcome, but overt cues as to the players' decisions and the outcome of the game were masked.
+      </p>
+      </div>
+
+      <br>
+
+      <img id="summaryfig" src="./assets/images/fig_design_summaryfig-cogsci2022.jpg" alt="summary of empirical datasets" />
+      <br>
+      <div class="textbox">
+        In the example shown, the focal player Cooperated and her opponent Defected. Thus, the game outcome is <strong>CD</strong>; and the focal player received nothing while her opponent won the entire jackpot.
+        In Dataset 1, observers guessed what actions (a in {CC, CD, DC, DD}) the players chose given a single player's dynamic expressions (x).
+        In Datasets 2 an 3, observers judged the intensity that players would feel 20 fine-grained emotions on continuous scales. Observers rated all 20 emotions during every trial.
+        In Dataset 2, observers predicted a player's emotions based on a description of the game outcome.
+        In Dataset 3, observers watched a 5-second videos of players' dynamics expressions.
+      </div>
+
+      <br><br>
+
+      <h1>Emotion Reasoning - Stimuli Demos</h1>
+
+      <h2>Training Video (requires audio)</h2>
+      <!--<div style="padding:73.37% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/673482658?h=5bd0e5679f&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="258_context1_vbr1_H265"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>-->
+
+
+
+
+      <div class="textbox">
+      Participants where informed about the rules of the game. This included watching an example of a player dyad negotiating before revealing their decisions:
+      </div>
+
+      <!--<div id="videoStimPackageDiv_training">-->
+      <!--  <video id="videoStim_training" controls>-->
+      <!--    <source type="video/mp4" media="(min-device-width: 792px)" src="">-->
+      <!--    <span class="whiteBG"><br>Your browser does not support HTML5 video </span>-->
+      <!--  </video>-->
+      <!--</div>-->
+      <!--<span id="trainingVideoProgress">LOADING</span>-->
+
+      <br>
+      <div class="videoframe">
+        <!--<div style="padding:73.38% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/673482658?h=5bd0e5679f&title=0&byline=0&portrait=0&speed=0&badge=0&autopause=0&player_id=0&app_id=58479/embed" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div>-->
+        <!--<iframe src="https://player.vimeo.com/video/673482658?h=5bd0e5679f&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="785" height="576" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="GB Negotiation Example"></iframe>-->
+        <iframe src="https://player.vimeo.com/video/673482658?h=5bd0e5679f&amp;title=0&amp;byline=0&amp;portrait=0&amp;speed=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" width="785" height="576" frameborder="0" allow="fullscreen" allowfullscreen title="GB Negotiation Example"></iframe>
+      </div>
+
+      <br><br>
+
+      <hr>
+
+      <br><br>
+
+      <h2>Spontaneous Dynamic Expressions</h2>
+
+      <div class="textbox">
+        In Datasets 1 and 3, participants viewed 5-second expression videos.
+
+        Each silent video features a single player's spontaneous expressions in the moments leading up to, and following, the game's climactic reveal.
+        The first 2 seconds consist of footage featuring the player immediately prior to the decisions being revealed, and the remaining 3 seconds is composed of footage of the player reacting to the outcome. The raw footage was cropped and/or masked such that only a single player is visible in a given video. Overt cues as to the players' decisions were occluded. The broadcast footage regularly cut between the two players, so the 5 seconds of footage was gathered by taking the scenes of the player most temporally proximal to moment where the players simultaneously present their decisions to each other, the crowd, and the cameras.
+      </div>
+
+      <br><br>
+      <h3>Dynamic Expression Demo 1</h3>
+      <div class="videoframe">
+        <video id="videoStim_1" controls controlsList="nodownload">
+          <source type="video/mp4" media="(min-device-width: 792px)" src="">
+          <span class="whiteBG"><br>Your browser does not support HTML5 video </span>
+        </video>
+      </div>
+
+      <br><br>
+      <h3>Dynamic Expression Demo 2</h3>
+      <div class="videoframe">
+        <video id="videoStim_2" controls controlsList="nodownload">
+          <source type="video/mp4" media="(min-device-width: 792px)" src="">
+          <span class="whiteBG"><br>Your browser does not support HTML5 video </span>
+        </video>
+      </div>
+
+      <br><br>
+      <h3>Dynamic Expression Demo 3</h3>
+      <div class="videoframe">
+        <video id="videoStim_3" controls controlsList="nodownload">
+          <source type="video/mp4" media="(min-device-width: 792px)" src="">
+          <span class="whiteBG"><br>Your browser does not support HTML5 video </span>
+        </video>
+      </div>
+
+      <br><br>
+      <h3>Dynamic Expression Demo 4</h3>
+      <div class="videoframe">
+        <video id="videoStim_4" controls controlsList="nodownload">
+          <source type="video/mp4" media="(min-device-width: 792px)" src="">
+          <span class="whiteBG"><br>Your browser does not support HTML5 video </span>
+        </video>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="main.bundle.js"></script>
+<!-- Default Statcounter code for CogSci2022-AWS
+http://daeh.s3-website-us-east-1.amazonaws.com -->
+<script type="text/javascript">
+  var sc_project=12711158;
+  var sc_invisible=1;
+  var sc_security="4b5a01c4";
+</script>
+<script type="text/javascript"
+        src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="Web Analytics Made Easy -
+Statcounter" href="https://statcounter.com/" target="_blank"><img
+        class="statcounter" src="https://c.statcounter.com/12711158/0/4b5a01c4/1/"
+        alt="Web Analytics Made Easy - Statcounter"
+        referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+</body>
+</html>

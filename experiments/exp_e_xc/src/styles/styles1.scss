@@ -1,0 +1,128 @@
+//slide stimPresSize whiteText
+//block-text labFrame
+//divTableRow
+//whiteText
+//stimPresSize
+//blackBG
+//buttonNext
+
+/* vertically centered */
+
+.outer {
+  display: table;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+  overflow: visible;
+}
+
+.slideDiv {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: visible;
+
+  &.slide-hidden {
+    display: none;
+  }
+
+  &.slide-focused {
+    display: block;
+    visibility: visible;
+  }
+}
+
+
+.divTable {
+  display: table;
+}
+
+.divTableBody {
+  display: table-row-group;
+}
+
+.divTableRow {
+  display: table-row;
+}
+
+.divTableCell {
+  display: table-cell;
+}
+
+
+.interactionStopperClass {
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 999;
+}
+
+.nocursor {
+  cursor: none;
+}
+
+.foremost {
+  z-index: 998;
+}
+
+.greyText {
+  //style="color:grey;"
+}
+
+.transitionmask {
+  //style="background-color:black;z-index:800;"
+}
+
+.div1 {
+  //nowrap style="max-width: 100px; text-align: left; margin: 0 auto;"
+}
+
+body {
+  text-align: center;
+}
+
+
+.progress {
+  text-align: center;
+  /*margin-top:0.5em;*/
+  color: hsl(0, 0%, 70%);;
+}
+
+.progress span {
+  /*position:relative;*/
+  /*top: -6px;*/
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  line-height: 13px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+.bar-wrapper {
+  height: 20px;
+  width: 300px;
+  border: 1px solid #636363;
+  /*display: inline-block;*/
+  text-align: center;
+  margin: 0 auto;
+}
+
+.bar {
+  /*position: relative;*/
+  height: 100%;
+  width: 0;
+  background-color: rgb(96, 0, 0);
+  text-align: center;
+}

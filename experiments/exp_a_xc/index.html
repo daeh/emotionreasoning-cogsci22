@@ -1,0 +1,1823 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>MTURK</title>
+    <!-- Video Dependancies -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style_video.css" />
+    <!-- Response Dependancies -->
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="style_response.css" />
+    <!-- Initalization Scripts: Response -->
+    <script type="text/javascript" src="mmtofurkey.js"></script>
+    <script type="text/javascript" src="jquery.pietimer.js"></script>
+    <script type="text/javascript" src="jszip.min.js"></script>
+    <script type="text/javascript" src="FileSaver.min.js"></script>
+    <script type="text/javascript">
+    window.onload = function() {
+        // reveal page
+        $('#interactionMask').hide();
+        $('#loadingMask').hide();
+        $('#loadingMask').addClass('element_purge'); // overkill, might mess with alignment
+
+        if (!!revoke) {console.log('Revoking Stim Videos')}
+        if (!!debug) {
+            console.log('DEBUGGING',debug);
+            loadHIT(4); //DEBUG
+            maintask.next();
+            // presentResponses();
+        } else {
+            showSlide("0");
+            trainingVideo.preloadStim();
+        }
+        
+    };
+    </script>
+    <!-- screen size test 
+<script type="text/javascript">
+
+$(document).ready(function() {
+testWindow1();
+testWindow2();
+testWindow3();
+testWindow4();
+});
+</script>
+-->
+</head>
+
+<body style="text-align: center;" oncontextmenu="return false;">
+    <div id="imagePreload" class="outer blackBG element_purge" style="z-index: 2;">
+        <img id="imageStim_preload" alt="Player" src="">
+    </div>
+    <div class="outer blackBG noHighlight" style="z-index: 200;">
+        <div class="middle">
+            <div id="0" class="slide stimPresSize whiteText">
+                <img src="images/MIT-logo-with-spelling-office-red-gray-design4.png" alt="MIT" width="584" height="80">
+                <br>
+                <div class="divTableRow">
+                    <div class="divTableCell" style="width: 50%;"></div>
+                    <h3 class="block-text labFrame">Social&nbsp;Cognitive&nbsp;Neuroscience&nbsp;Laboratory</h3>
+                    <div class="divTableCell" style="width: 50%;"></div>
+                </div>
+                <h4 class="block-text">Because this HIT uses videos, a fast internet connection is required!</h4>
+                <p><b>Note: You will need to be able to play audio in order to successfully complete this HIT.</b></p>
+                <p>
+                    In this experiment, we are interested in how well you can read other people's reactions!
+                    <br>
+                    <br> This HIT consists of 88 trials in which you will watch short (~14 sec) videos and decide what recently happened to the person from a small set of options. The videos are of people's natural and spontaneous reactions (not of staged actors).
+                    <br>
+                    <br>
+                    <b>BONUS: If you are especially good at reading people's reactions (>85% correct) you will receive a $4 bonus.</b>
+                </p>
+                <br>
+                <p class="block-text" id="legal">Disclaimer: This HIT is part of a scientific research project. Your decision to complete this HIT is voluntary. There is no way for us to identify you. The only information we will have, in addition to your responses, is the time at which you completed the survey. The results of the research may be presented at scientific meetings or published in scientific journals. Clicking on the &#39;Next&#39; button on the bottom of this page indicates that you are at least 18 years of age, and agree to complete this HIT voluntarily.</p>
+                <div class="advance-button" onclick="if(!!checkPreview()){this.blur(); loadHIT(1);}">NEXT</div>
+                <br>
+            </div>
+            <div id="loadingHIT" class="slide stimPresSize whiteText">
+                <img src="images/MIT-logo-with-spelling-office-red-gray-design4.png" alt="MIT" width="584" height="80">
+                <br>
+                <div class="divTableRow">
+                    <div class="divTableCell" style="width: 50%;"></div>
+                    <h3 class="block-text labFrame">Social&nbsp;Cognitive&nbsp;Neuroscience&nbsp;Laboratory</h3>
+                    <div class="divTableCell" style="width: 50%;"></div>
+                </div>
+                <h3 class="block-text">Retrieving your HIT! <br><br>Please wait, this should not take long.</h3>
+            </div>
+            <div id="1" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame">Instructions 1 of 3:</h3>
+                <p>In this experiment, you will decide what you think happened to people based on short videos.
+                    <br>
+                    <br>
+                    <br> All of the people you will consider were one of the two contestants in the final round of a gameshow. These are real people winning (or not winning) real money.
+                    <br>
+                    <br> Leading up to this round, these final two contestants interacted in games involving strategic deception and honesty to add money to the total jackpot, and have managed to avoid being eliminated in the earlier rounds.
+                    <br>
+                    <br> In this round, all of the money that the two contestants have accumulated is at stake. These jackpots can range <b>from $2.00 to $100,000.00</b>.
+                    <br>
+                    <br> Each contestant is given a choice: whether to 'Split' or 'Steal'.
+                    <!-- Depending on what the two contestants choose, they might each win half of the total jackpot, one could win the entire jackpot while the other wins nothing, or they might both walk away having won nothing. -->
+                    <br>
+                    <br>
+                    <br> If both people choose to 'Split', they each win <b><em>half</em></b> of the total jackpot.
+                    <br>
+                    <br> If one player chooses to 'Steal' while the other player chooses to 'Split', the player who <b>Stole</b> wins the <b><em>entire</em> jackpot</b> while the player who <b>Split</b> wins <b><em>nothing</em></b>.
+                    <br>
+                    <br> If both players choose to 'Steal', then they both leave having won <b><em>nothing</em></b>.
+                    <br><br>
+                    <p><span class="whiteText">
+                                    Next you'll hear the rules of the game described and watch an example of two contestants negotiating before revealing their 'Split' or 'Steal' decisions. <br><br>This is the only time that audio will be required for this HIT.
+
+                                </span>
+                </p>
+                <br>
+                    <br>
+                    <div class="advance-button" onclick="this.blur(); showSlide('slideTrainingVideo');">NEXT</div>
+                    <br>
+            </div>
+            <!-- Training Video Block -->
+            <div id="slideTrainingVideo" class="slide stimPresSize">
+                <div class="divTable" style="width: 810px; height: 100%;">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell topCell">
+                                <br>
+                <h3 class="block-text labFrame whiteText">Instructions 2 of 3:</h3><br>
+                                <div class="videoStimFramingDivClass">
+                                    <div id="videoLoadingDiv" class="divTable responseTableFrame eventDescriptText" style="background-color: #FFFFFF; position: relative; top: 50px; margin: 0 auto;height: 100px; max-height: 100px;">
+                                        <div class="divTableBody">
+                                            <div class="divTableRow">
+                                                <div class="divTableCell"></div>
+                                                <table border="0" cellpadding="10" cellspacing="0" style="width:300px; height:100px;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <table border="0" align="center" cellpadding="0" cellspacing="4">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="250" height="250" align="center" valign="middle" style="white-space: nowrap;">
+                                                                                <div id="contextTableFrontDiv" class="eventDescriptTable eventDescriptText">
+                                                                                    Video Loading
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table width="787" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="787" height="576" align="center" valign="middle" style="white-space: nowrap;">
+                                                    <div id="videoStimPackageDiv_training">
+                                                        <video id="videoStim_training" width="787" height="576" preload="auto" controls>
+                                                            <source type="video/mp4" media="(min-device-width: 792px)" src="">
+                                                            <span style="color: #8C8C8C"><br>Your browser does not support HTML5 video </span>
+                                                        </video>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableCell">
+                                <span class="whiteText">According to the host in this video, how large was this particular jackpot for these contestants?<br>(You can replay the video if you'd like to hear the rules explained again.)</span>
+                                <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td height="40" align="center">
+                                                <div id="playButtonContainer_training" class="divTable">
+                                                    <div class="divTableBody">
+                                                        <div class="divTableRow">
+                                                            <div class="divTableCell" style="width: 100px; text-align: right; vertical-align: middle;">
+                                                            </div>
+                                                            <div class="divTableCell" style="width: 100px; text-align: middle; vertical-align: middle;">
+                                                                <table cellspacing="5" class="whiteText" style="text-align: left;">
+                                                                    <tr>
+                                                                        <td style="white-space: nowrap;">
+                                                                            <label>
+                                                                                <input type="radio" name="v0" value="76230" id="v0_0"> 76,230.00
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                                        <td style="white-space: nowrap;">
+                                                                            <label>
+                                                                                <input type="radio" name="v0" value="12246" id="v0_2"> 12,246.00
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="white-space: nowrap;">
+                                                                            <label>
+                                                                                <input type="radio" name="v0" value="32900" id="v0_1"> 32,900.00
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                                        <td style="white-space: nowrap;">
+                                                                            <label>
+                                                                                <input type="radio" name="v0" value="7510" id="v0_3"> 7,510.00
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                            <div class="divTableCell" style="width: 100px; text-align: right; vertical-align: middle;">
+                                                            </div>
+                                                        </div>
+                                                        <div class="divTableRow">
+                                                            <div class="divTableCell" style="width: 100px; text-align: right; vertical-align: middle;">
+                                                                <span id="loadingTextLeft_training" class="loadingText">VIDEO&nbsp;</span>
+                                                            </div>
+                                                            <div class="divTableCell">
+                                                                <div id="training_advance_button" class="advance-button-inactive" onclick="alert('Please watch the entire video and then answer the question');">NEXT</div>
+                                                                <!--  <div id="playButton_training" class="play-button-inactive" onclick="">
+                                                            </div> -->
+                                                            </div>
+                                                            <div class="divTableCell" style="width: 100px; text-align: left; vertical-align: middle;">
+                                                                <span id="loadingTextRight_training" class="loadingText">&nbsp;LOADING</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="2" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame">Instructions 3 of 4:</h3>
+                <p>
+                    <br> For each video, you will be shown a contestant's reaction as she/he learns the outcome of the gameshow. Then you'll be asked 4 questions. 
+                    <br>
+                    <br> The first two questions ask you to guess what decision the contestants made and to rate your confidence in your guess. 
+
+                    <br><br>This is the scale you'll use for each contestant:
+
+                    
+                    <br>
+                    <br>  
+<!--
+<table class="responseTableFrame" border="0" cellspacing="0" style="height: 0; width: 800px; color: black;">
+<tbody>
+<tr>
+<td>
+<table>
+    <tbody>
+        <tr>
+            <td style="width:470px; vertical-align:bottom;">
+                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                    <img width="70" height="70" src="images/SplitBall.png"></td>
+                </div>
+            </td>
+            <td style="width: 150px; height: 150px;">
+                <div class="photoThumb">
+                    <img width="150" height="150" src="../stimuli/statics/259_1.png">
+                </div>
+            </td>
+            <td style="width:470px; vertical-align:bottom;">
+                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                    <img width="70" height="70" src="images/StoleBall.png"></td>
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td colspan="3">
+            -->
+                <table style="width: 100%" align="center">
+                    <tbody>
+                        <tr>
+                            <td><img src="images/C2.jpg"></td>
+                            <td><img src="images/C1.jpg"></td>
+                            <td><img src="images/C0.jpg"></td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
+                            <td><img src="images/D0.jpg"></td>
+                            <td><img src="images/D1.jpg"></td>
+                            <td><img src="images/D2.jpg"></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            <!--
+            </td>
+        </tr>
+    </tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+-->
+ <p>For example, if you see a video of this contestant <img width="75" height="75" class="photoThumb" style="width:75px; height:75px; display: inline-block;"  align="center" src="../stimuli/statics/259_1.png"> and think that he chose <em>Steal</em>, but feel very uncertain about your judgement, you would pick <img src="images/D0.jpg" alt="demo" style="display: inline-block;" align="center"/> from the list above.
+
+<br><br>
+>>&nbsp;&nbsp;"I am [ very / slightly / <b>not</b> ] confident that this contestant chose [ <em>Split / <b>Steal</b></em> ]"&nbsp;&nbsp;<<
+
+ </p>
+
+ If you also guessed that that the other contestant <img width="75" height="75" class="photoThumb" style="width:75px; height:75px; display: inline-block;"  align="center" src="images/generic_avatar_male.png"> (whose face is never pictured) chose 'Split', that would indicate that you think that the contestant whose reaction you saw won the entire jackpot while the other contestant left with nothing. That possibility is depicted in this table:
+
+<br><br>
+<img src="images/payoffMatrixDemo.jpg">
+
+</p>
+
+                    
+
+<!-- <table class="responseTableFrame" border="0" cellspacing="0" style="height: 0; width: 800px; color: black;">
+<tbody>
+<tr>
+<td>
+<table>
+    <tbody>
+        <tr style="width:100%;">
+            <td style="width:470px; vertical-align:bottom;">
+                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                    <img width="70" height="70" src="images/SplitBall.png"></td>
+                </div>
+            </td>
+            <td style="width:150px;">
+                <div class="photoThumb">
+                    <img width="150" height="150" src="images/generic_avatar_male.png">
+                </div>
+            </td>
+            <td style="width:470px; vertical-align:bottom;">
+                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                    <img width="70" height="70" src="images/StoleBall.png">
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table> -->
+
+
+
+                    <br>
+                    <br> The next two questions will ask you to predict what <b>other MTURK workers</b> thought that the contestants chose:
+
+                    <br>
+                    <br> We previously asked 100 people what decision the contestants made. We are interested if you can predict how many of those people thought that the contestants chose the <em>Split</em> ball and how many chose the <em>Steal</em> ball. 
+
+                    <br>
+                    <br>For example, pretend you think that 25 of those 100 people thought that the pictured contestant choose 'Split' while 75 thought that this contestant chose 'Steal'. Please <b>adjust this slider</b> to indicate that belief.
+                    <br>
+                    <br> 
+                    <table class="responseTableFrame" border="0" cellspacing="0" style="height: 0; width: 800px; color: black;">
+                        <tbody>
+                            <tr><td>
+                                <table>
+                                    <tbody>
+                                        <tr style="width:100%;">
+                                            <td style="width:470px; vertical-align:bottom;">
+                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                    <img width="70" height="70" src="images/SplitBall.png"></td>
+                                                </div>
+                                            </td>
+                                            <td style="width:150px;">
+                                                <div class="photoThumb">
+                                                    <img width="150" height="150" src="../stimuli/statics/259_1.png">
+                                                </div>
+                                            </td>
+                                            <td style="width:470px; vertical-align:bottom;">
+                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                    <img width="70" height="70" src="images/StoleBall.png">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <table border="0" align="center" cellpadding="0" cellspacing="0" class="responsesTable" style="height: 70px;">
+                                    <tbody>
+                                        <tr style="visibility: hidden;">
+                                            <td width="0" class="outsideEmotionLabels restText" style="text-align: left; vertical-align: middle;"><strong>&nbsp;</strong></td>
+                                            <td height="5"><span>100&nbsp;</span></td>
+                                            <td height="5"><span class="eFloor">split&nbsp;</span></td>
+                                            <td style="width: 301; text-align: center; vertical-align: middle;"></td>
+                                            <td height="5"><span class="eCeiling">&nbsp;steal</span></td>
+                                            <td height="5"><span class="eCeiling">&nbsp;100</span></td>
+                                        </tr>
+                                        <tr class="confidenceRatingRow">
+                                            <td class="outsideEmotionLabels restText" style="width: 0; text-align: left; vertical-align: middle;"><strong>other workers&nbsp;</strong></td>
+                                            <td style="text-align: left; height: 25px;"><span class="eFloorPercent" style="text-align: center;"> &nbsp;</span></td>
+                                            <td style="text-align: right; height: 25px;"><span class="eFloor"> &nbsp;</span></td>
+                                            <td style="width: 301px; text-align: center; vertical-align: middle;">
+                                                <div class="slider">
+                                                    <label id="slider-label-o0" class="slider-label-not-clicked isCenter">other workers</label>
+                                                    <input id="confidenceDemo" class="not-clicked" type="range" min="0" value="50" max="100">
+                                                </div>
+                                            </td>
+                                            <td style="text-align: left; height: 25px;"><span class="eCeiling"> &nbsp;</span></td>
+                                            <td style="text-align: left; height: 25px;"><span class="eCeilingPercent" style="text-align: center;"> &nbsp;</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+ <!--                
+in addition to being able to tell what happened to the people in the videos, 
+                    <br><br>
+
+                    Note that if one contestant chooses <em><b>'Split'</b></em>, the other contestant necessarily <em><b>wins</b></em>
+                    <br>money (either half the jackpot or the entire jackpot).
+                    <br>
+                    <br>If one contestant chooses <em><b>'Steal'</b></em>, the other contestant necessarily wins <em><b>nothing</b></em>
+                    <br>(while the first contestant wins either the entire jackpot or also leaves with nothing).
+                    <br>
+                    <br> The gameshow contestants reveal their decisions to each other simultaneously by showing each other the word 'Split' or 'Steal' written inside of a gold-colored ball.
+                    <br>
+                    <br> Prior to revealing their decisions to one another, the contestants negotiate with each other in the hopes of convincing the other person to choose 'Split'.
+                    <br>(Again, for the first player to win anything, the second player needs to 'Split', but there is no financial benefit for either player to 'Split'.)
+                    <br>
+                    <br> In order to convince the other player to 'Split', people tend to place their reputations on the line, make bold appeals to their honor and morals, and/or describe the extreme consequences that they would suffer if they were to 'Steal'. (E.g. "I promised my kids I would Split and they would never look up to me again if they saw me Steal", "I would definitely get fired from my job if I Stole", etc.)
+                    <br>
+                    <br> The entire event takes place in front of a live studio audience, is broadcast on TV nationally, and is widely viewed. Contestants on the show are often recognized by strangers who remember the contestant's on-air behavior.
+                   <br> Your job is to rate to what extent a given contestant experienced each of 20 different emotions in response to the 'Split'/'Steal' decision.
+                    <br>
+                    <br>Each emotion is rated on a ranges from "<b><em>not at all</em></b>" to "<b><em>extremely</em></b>"
+                    <br>
+                    <br>For example:
+                    <br>
+                    <br>"This person feels 'not at all' <em>jealous</em>."
+                    <br>
+                    <br>"This person feels 'extremely' <em>contemptuous</em>." -->
+                    <!-- each person's experience of 20 different emotions. -->
+                    <!-- 
+                    <br> Your job is to rate each person's experience of these 20 different emotions (you don't need to remember them; they'll be presented each trial).
+                    <table border="0" cellpadding="30" cellspacing="0" style="color:#FFFFFF;">
+                        <tbody>
+                            <tr>
+                                <td width="50%">
+                                </td>
+                                <td nowrap>
+                                    Annoyed
+                                    <br>
+                                    <br> Apprehensive
+                                    <br>
+                                    <br> Contemptuous
+                                    <br>
+                                    <br> Content
+                                    <br>
+                                    <br> Devastated
+                                    <br>
+                                    <br> Disappointed
+                                    <br>
+                                    <br> Disgusted
+                                    <br>
+                                    <br> Embarrassed
+                                    <br>
+                                    <br> Excited
+                                    <br>
+                                    <br> Furious
+                                </td>
+                                <td nowrap>
+                                    Grateful
+                                    <br>
+                                    <br> Guilty
+                                    <br>
+                                    <br> Hopeful
+                                    <br>
+                                    <br> Impressed
+                                    <br>
+                                    <br> Jealous
+                                    <br>
+                                    <br> Joyful
+                                    <br>
+                                    <br> Proud
+                                    <br>
+                                    <br> Relieved
+                                    <br>
+                                    <br> Surprised
+                                    <br>
+                                    <br> Terrified
+                                </td>
+                                <td width="50%">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   
+                     <br>
+                    You will report how much the person is experiencing of each of the 20 emotions on a scale
+                    <br>from "<b><em>not at all</em></b>" to "<b><em>extremely</em></b>" using a sliding range. 
+
+                                        <br>
+                                    -->
+                
+
+<br><br>
+                <!-- <p>We'll try a demo next</p> -->
+                <!-- <br><b><em>Only</em> provide a rating other the "<em>not at all</em>" if you think that the person is experiencing that emotion. </b> -->
+                <div class="advance-button" onclick="if(document.getElementById('confidenceDemo').value == 75){this.blur(); showSlide('3');}else{alert('Please adjust the slider to match the instructions');}">NEXT</div>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div id="3_hold" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame">Instructions 3 of 5:</h3>
+                <!-- <h3 class="block-text">In this experiment, you will see </h3> -->
+                <table class="responseTableFrame" border="0" cellpadding="10" cellspacing="0" style="color:#000000;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table id="demoTable" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3" width="790">
+                                                <br>
+                                                <br>
+                                                <h3>Please adjust the sliding ranges below to the specified values.</h3>
+                                                <p>
+                                                    <b>To adjust a sliding range, you can:</b>
+                                                    <br>
+                                                    <br> &ndash; &ndash; Click anywhere on grey bar &ndash; &ndash;
+                                                    <br>
+                                                    <br> &ndash; &ndash; Click and drag anywhere on the grey bar &ndash; &ndash;
+                                                    <br>
+                                                    <br> &ndash; &ndash; Click "<em>not at all</em>" or "<em>extremely</em>" to the left and right of the grey bar &ndash; &ndash;
+                                                </p>
+                                                <hr>
+                                            </td>
+                                        </tr>
+                                        <tr style="visibility: hidden;">
+                                            <td width="0" valign="middle" class="outsideEmotionLabels restText"><strong>&nbsp;</strong></td>
+                                            <td height="5"><span class="eFloor">not&nbsp;at&nbsp;all&nbsp;</span></td>
+                                            <td valign="middle" width="301"></td>
+                                            <td height="5"><span class="eCeiling">&nbsp;extremely</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" width="790">
+                                                Set the emotion rating for <em>apprehensive</em> to "<em>not at all</em>" by <b>clicking the text</b> that appears to the left of the slider when the mouse moves over the grey bar.
+                                                <br>
+                                                <br> Setting the emotion rating all the way to the left ("<em>not at all</em>") indicates that the person experienced <em>none</em> of that emotion.
+                                                <br>
+                                                <br> In this case: <b>"the person felt <em>not at all apprehensive</em>"</b>.
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr class="emotionRatingRow">
+                                            <td width="0" valign="middle" class="outsideEmotionLabels restText"><strong>Apprehensive&nbsp;</strong></td>
+                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                            <td valign="middle" width="301">
+                                                <div class="slider">
+                                                    <label id="slider-label-demo1" class="slider-label-not-clicked isCenter">Apprehensive</label>
+                                                    <input id="demo1" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                </div>
+                                            </td>
+                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" width="790">
+                                                <hr>
+                                                <br>
+                                                <br> Set the emotion rating for <em>excited</em> by <b>clicking on the grey bar</b> somewhere near the middle.
+                                                <br>
+                                                <br>
+                                                <br> Setting the emotion rating to to mid-point indicates that the person experienced a <em>moderate</em> amount of that emotion.
+                                                <br>
+                                                <br> In this case: <b>"the person felt <em>somewhat excited</em>"</b>.
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr class="emotionRatingRow">
+                                            <td width="0" valign="middle" class="outsideEmotionLabels restText"><strong>Excited&nbsp;</strong></td>
+                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                            <td valign="middle" width="301">
+                                                <div class="slider">
+                                                    <label id="slider-label-demo2" class="slider-label-not-clicked isCenter">Excited</label>
+                                                    <input id="demo2" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                </div>
+                                            </td>
+                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" width="790">
+                                                <hr>
+                                                <br>
+                                                <br> Set the emotion rating for <em>furious</em> to "<em>extremely</em>" by clicking on the grey bar somewhere near the middle, then <b>dragging the marker</b> all the way to the right.
+                                                <br>
+                                                <br> Setting the emotion rating all the way to the <em>right</em> indicates that the person experienced a <em>great deal</em> of that emotion.
+                                                <br>
+                                                <br> In this case: <b>"the person felt <em>extremely furious</em>"</b>.
+                                                <br>
+                                            </td>
+                                        </tr>
+                                        <tr class="emotionRatingRow">
+                                            <td width="0" valign="middle" class="outsideEmotionLabels restText"><strong>Furious&nbsp;</strong></td>
+                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                            <td valign="middle" width="301">
+                                                <div class="slider">
+                                                    <label id="slider-label-demo3" class="slider-label-not-clicked isCenter">Furious</label>
+                                                    <input id="demo3" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                </div>
+                                            </td>
+                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <p><span class="whiteText">
+                                    Next you'll hear the rules of the game described and watch an example of two contestants negotiating before revealing their 'Split' or 'Steal' decisions. <br><br>This is the only time that audio will be required for this HIT.
+
+                                </span>
+                </p>
+                <br>
+                <div class="advance-button" onclick="if(!!validateDemoRanges()){this.blur(); showSlide('slideTrainingVideo');}">NEXT</div>
+                <br>
+                <br>
+            </div>
+            
+            <div id="3" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame">Instructions 4 of 4:</h3>
+                <br>
+                <br>
+                <b> Remember, if you are very accurate in your judgements (>85%), you'll earn a $4 bonus. </b>
+                    <br>
+                    <br> If your judgements are highly accurate (even if they are below 85%) and/or your predictions about the judgements made by other MTURK works are highly accurate, we may like to <b>invite you back for further research</b>. If you'd like to volunteer to be recontacted, you can give us your email at the end of the experiment.</b>
+                <!-- <h3>You will now judge what emotions 12 different contestants felt.</h3> -->
+                <!-- For each person you consider, you will be told the total size of the jackpot, the decision that each player made, and how much each player won as a result. -->
+                <br>
+                <br>
+                <p>Let's begin!</p>
+                <br>
+                <p>Each video clip is 5 seconds long. When you press the 'play' button under the video frame, the video will automatically play twice.
+                    <br><br>You can replay the video any time while answering the 4 questions about it.
+                    <br>
+                    </p>
+                <!-- <h3>For each person, rate his/her emotions by taking into account <br>the <em>full video clip</em> and what you know about the <em>decision outcome.</em><br></h3> <b>(We are asking you to judge the person's emotions over the full 5 seconds, not just at a single still point in time.)</b> -->
+                <!--   <h3>If you think that the person is <em>definitely not</em> experiencing <em>any</em> of a particular emotion, please move the sliding marker all the way to the <em>left</em> to indicate "<em>not at all</em>".</h3> (But if you think that the person might possibly be subtly experiencing that emotion, move the marker to the right accordingly.)
+                <br> -->
+                <!-- <br> -->
+                <!-- <br> You will also be shown a photo of the contestant for whom you are providing emotion ratings. -->
+                <br>
+                <!-- <b> The photo was taken in the seconds immediately leading up to the contestants revealing their decisions &mdash; the photo is NOT of the person's reaction to the outcome. The photo is just to identify the contestant, you should not use it for your emotion ratings (rather, use the video and the outcome information).</b>
+                <br>
+                <p>If you think that the person is <b>definitely <em>not</em></b> experiencing a particular emotion, move the sliding marker all the way to the <em>left</em> to indicate "<em>not at all</em>". (Whereas, if you do think that the person is experiencing the emotion, even slightly or subtly, move the marker to the right accordingly.)</p> -->
+                <!-- <p>We'll try a demo next</p> -->
+                <!-- <br><b><em>Only</em> provide a rating other the "<em>not at all</em>" if you think that the person is experiencing that emotion. </b> -->
+                <p>Good luck!</p>
+                <div class="advance-button" onclick="this.blur(); maintask.next();">NEXT</div>
+                <br>
+            </div>
+            <!-- Video Block -->
+            <div id="slideStimulus" class="slide stimPresSize">
+                <div id="divTable_stimuli" class="divTable">
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div id="topCell" class="divTableCell">
+                                <div id="vidoStimFrameID" class="videoStimFramingDivClass">
+                                    <!--
+                                    <div id="responseDivCues0" class="divTable responseTableFrame eventDescriptText" style="background-color: #FFFFFF; position: relative; top: 50px; margin: 0 auto;">
+                                        <div class="divTableBody">
+                                            <div class="divTableRow" style="height: 252px;">
+                                                <div class="divTableCell">
+                                                    <div class="divTable" style="width: 100%; height: 252px;">
+                                                        <div class="divTableBody">
+                                                            <div class="divTableRow">
+                                                                <div class="divTableCell" style="width: 250px;">
+                                                                    <div class="photoThumb"><img id="imageStim_front1" alt="Player" style="width:250px; height:250px;" src=""></div>
+                                                                </div>
+                                                                <div class="divTableCell">
+                                                                    <div class="divTableRow"><img alt="" style="width:250px; height:150px;" src="images/white_250_150.png"></div>
+                                                                    <div class="divTableRow">
+                                                                        <div class="divTableCell" style="text-align: center;">
+                                                                            <span class="outcomeTitle" style="font-size: 20px;">Jackpot:</span>
+                                                                            <br>
+                                                                            <span id="context_jackpot_front" class="outcomeValue1" style="font-size: 20px;">&nbsp;</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="divTableRow"></div>
+                                                                </div>
+                                                                <div class="divTableCell" style="">
+                                                                    <div class="photoThumb"><img id="imageStim_front2" alt="Player" style="width:250px; height:250px;" src=""></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="divTableRow">
+                                                <div class="divTableCell" style="width:648px; height:115px;">
+                                                    <img id="imageContext" alt="Player" style="width:648px; height:115px;" src="">
+                                                </div>
+                                            </div>
+                                            <div class="divTableRow" style="">
+                                                <div class="divTableCell" style="">
+                                                    <div class="divTable" style="width: 100%;">
+                                                        <div class="divTableBody">
+                                                            <div class="divTableRow">
+                                                                <div class="divTableCell" style="width: 250px;">
+                                                                    <span id="context_outcome_front1" class="outcomeValue1" style="font-size: 22px;">&nbsp;</span></div>
+                                                                <div class="divTableCell" style="width: 250px;"><img alt="" style="width:250px; height:30px;" src="images/white_250_150.png"></div>
+                                                                <div class="divTableCell" style="width: 250px;"><span id="context_outcome_front2" class="outcomeValue1" style="font-size: 22px;">&nbsp;</span></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div id="responseDivCues1" class="divTable whiteText" style="background-color: #000000; position: relative; top: 50px; margin: 0 auto;height: 100px; max-height: 100px;">
+
+                                                    <p><b>&nbsp;</b></p>
+
+                                    </div>
+                                    <table id="videoStimPackageTable" width="787" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td width="787" height="576" align="center" valign="middle" nowrap>
+                                                    <div id="videoStimPackageDiv" class="interactionStopperClass">
+                                                        <video id="videoStim" width="787" height="576" preload="auto" class="interactionStopperClass">
+                                                            <source type="video/mp4" media="(min-device-width: 792px)" src="">
+                                                            <span style="color: #8C8C8C"><br>Your browser does not support HTML5 video </span>
+                                                        </video>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divTableRow">
+                            <div id="bottomCell" class="divTableCell">
+                                <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td height="40" align="center">
+                                                <div id="playButtonContainer" class="divTable">
+                                                    <div class="divTableBody">
+                                                        <div class="divTableRow">
+                                                            <div class="divTableCell" style="width: 100px; text-align: right; vertical-align: middle;">
+                                                                <span id="loadingTextLeft" class="loadingText">&nbsp;</span>
+                                                            </div>
+                                                            <div class="divTableCell">
+                                                                <div id="playButton" class="play-button-inactive" onclick="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="divTableCell" style="width: 100px; text-align: left; vertical-align: middle;">
+                                                                <span id="loadingTextRight" class="loadingText">&nbsp;</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Response Block -->
+            <div id="slideResponse" class="slide responseCollectSize noHighlight">
+                <div class="divTable">
+                    <div class="divTableBody">
+                        <div id="RespSet" class="divTableRow">
+                            <div class="divTableCell" style="vertical-align:top;">
+                                <div id="responseDivCues" class="divTable">
+                                    <div class="divTableBody">
+                                        <div class="divTableRow">
+                                            <div class="divTableCell" style="width:300px; vertical-align:top;">
+                                                <table id="responseCuesTableFrameID" class="responseTableFrame" border="0" cellpadding="10" cellspacing="0" style="width:300px;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+
+
+
+                                                                        <div class="divTable">
+                                                                                                        <div class="divTableBody">
+                                                                                                            <div class="divTableRow">
+                                                                                                                <div class="divTableCell">
+
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td width="70">
+                                                                                        </td>
+                                                                                        <td width="70">
+                                                                                        </td>
+                                                                                        <td colspan="2">
+                                                                                            <div class="photoThumb1">
+                                                                                                <img id="minifacePM_Other" width="70" height="70" src="">
+                                                                                            </div>
+                                                                                            </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td width="70">
+                                                                                        </td>
+                                                                                        <td width="70">
+                                                                                        </td>
+                                                                                        <td colspan="2" height="20">
+                                                                                            <div id="moneyother">&nbsp;</div>
+                                                                                            </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td height="70" width="70" style="text-align: center; vertical-align: middle;">
+                                                                                        </td>
+                                                                                        <td height="70" width="70" style="text-align: center; vertical-align: middle;">
+                                                                                            <span id='moneytotal'> &nbsp;</span>
+                                                                                        </td>
+                                                                                        <th style="border: solid black;" height="70" width="70" align="center" valign="middle">
+                                                                                            <img width="70" height="70" vertical-align="center" src="images/SplitBall.png">
+                                                                                        </th>
+                                                                                        <th style="border: solid black;" height="70" width="70" align="center" valign="middle">
+                                                                                            <img width="70" height="70" vertical-align="center" src="images/StoleBall.png">
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td rowspan="2">
+                                                                                            <div style="float:left;" class="photoThumb1">
+                                                                                                <img id="minifacePM_This" width="70" height="70" src="">
+                                                                                            </div>
+                                                                                            <div class="money" id="moneythis">&nbsp;</div>
+                                                                                        </td>
+                                                                                        <th style="border: solid black;" height="70" width="70" align="center" valign="middle"><img width="70" height="70" src="images/SplitBall.png">
+                                                                                        </th>
+                                                                                        <td id="spltpot" style="border: 2px solid black;" height="70" width="70" align="center" valign="middle">
+                                                                                        <img id="payoffCC" width="70" height="70" src="images/payoffCC.jpg">
+                                                                                        </td>
+                                                                                        <td id="otherFull" style="border: 2px solid black;" height="70" width="70" align="center" valign="middle">
+                                                                                        	<img id="payoffCD" width="70" height="70" src="images/payoffCD.jpg">
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="border: solid black;" height="70" width="70" align="center" valign="middle"><img width="70" height="70" src="images/StoleBall.png">
+                                                                                        </th>
+                                                                                        <td id="thisFull" style="border: 2px solid black;" height="70" width="70">
+                                                                                        	<img id="payoffDC" width="70" height="70" src="images/payoffDC.jpg">
+                                                                                        </td>
+                                                                                        <td id="none" style="color: white; border: 2px solid black;" height="70" width="70">
+                                                                                        	<img id="payoffDD" width="70" height="70" src="images/payoffDD.jpg">
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+<div class="divTableRow">
+<div class="divTableCell">
+                                                                        <tr>
+                                                                            <td width="300" height="0" align="center" valign="middle" style="white-space: nowrap;">
+                                                                                <div id="photoThumb" class="photoThumb"><img id="imageStim" alt="Player" style="width:250px; height:250px;" src=""></div>
+                                                                                <div id="videoStimPackageDiv_small">
+                                                                                    <video id="videoStim_small" width="300" height="219" preload="auto" controls>
+                                                                                        <source type="video/mp4" media="(min-device-width: 792px)" src="">
+                                                                                        <span style="color: #8C8C8C"><br>Your browser does not support HTML5 video </span>
+                                                                                    </video>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </div>
+                                                                </div>
+</div>
+</div>
+                                                                <!--
+                                                                <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="302" height="250" align="center" valign="middle" style="white-space: nowrap;">
+                                                                                <div class="eventDescriptTable eventDescriptText interactionStopperClass">
+                                                                                    <table id="contextSubTableID" width="300" border="0" cellpadding="0" cellspacing="1">
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td height="10">&nbsp;</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="outcomeTitle">When this happened:</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="10">&nbsp;</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="outcomeTitle">Jackpot:</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class="outcomeValue1"><span id="context_jackpot"></span></td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="10">&nbsp;</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="20" class="outcomeTitle" style="white-space: nowrap;">Other player:</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="50">
+                                                                                                    <div class="divTable" style="width: 100%; height: 50px;">
+                                                                                                        <div class="divTableBody">
+                                                                                                            <div class="divTableRow">
+                                                                                                                <div class="divTableCell" style="width: 50px; height: 50px;">
+                                                                                                                    <img id="contextImg_decisionOther" width="50" height="50" src="">
+                                                                                                                </div>
+                                                                                                                <div class="divTableCell" style="vertical-align: top; height: 50px;">
+                                                                                                                    <span id="contextText_decisionOther" class="outcomeValue1">&nbsp;</span>
+                                                                                                                    <br>
+                                                                                                                    <span id="context_outcomeOther" class="outcomeValue1">&nbsp;</span>
+                                                                                                                </div>
+                                                                                                                <div class="divTableCell" style="width: 50px; height: 50px;"><img id="miniface_Other" width="50" height="50" src=""></div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="10">&nbsp;</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="20" class="outcomeTitle" style="white-space: nowrap;">This player:</td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td height="50">
+                                                                                                    <div class="divTable" style="width: 100%; height: 50px;">
+                                                                                                        <div class="divTableBody">
+                                                                                                            <div class="divTableRow">
+                                                                                                                <div class="divTableCell" style="width: 50px; height: 50px;">
+                                                                                                                    <img id="contextImg_decisionThis" width="50" height="50" src="">
+                                                                                                                </div>
+                                                                                                                <div class="divTableCell" style="vertical-align: top; height: 50px;">
+                                                                                                                    <span id="contextText_decisionThis" class="outcomeValue1">&nbsp;</span>
+                                                                                                                    <br>
+                                                                                                                    <span id="context_outcomeThis" class="outcomeValue1">&nbsp;</span>
+                                                                                                                </div>
+                                                                                                                <div class="divTableCell" style="width: 50px; height: 50px;"><img id="miniface_This" width="50" height="50" src=""></div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            -->
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="barChartContainer" class="divTableCell" style="vertical-align:bottom; width:50px;">
+                                <!-- <div style="width:20px; vertical-align:bottom; background-color: green;">test</div> -->
+                                <div class="divTableCell responseBarChartBackground">
+                                    <div id="barChart" class="responseBarChart"></div>
+                                </div>
+                            </div>
+                            <div id="responsesDivSliders">
+                                
+
+
+<!--
+                            	<table id="responseTableFrameID-BTSpredicted" class="responseTableFrame" border="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="divTableCell" style="width:1000px;">
+                                                    <table>
+                                                    	<tr style="width:100%;">
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                            	PREDICTED
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="width:100%;">
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                                    <img id="choiceBallMain-left-other-BTSpredicted" width="70" height="70" src=""></td>
+
+                                                            	</div>
+                                            </td>
+                                            <td style="width:150px;">
+                                                <div class="photoThumb">
+                                                    <img id="miniface_Other-BTSpredicted" width="150" height="150" src="">
+                                                </div>
+                                            </td>
+                                            <td style="width:470px; vertical-align:bottom;">
+                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                    <img id="choiceBallMain-right-other-BTSpredicted" width="70" height="70" src="">
+
+                                                </div>
+                                            </td>
+                                            </tr>
+                                            </table>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="BTS_predicted_otherPlayDecisionOptions" class="confidence-selector">
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr height="30">
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="divTableCell" style="width:1000px;">
+                                                    <table>
+                                                        <tr style="width:100%;">
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                                    <img id="choiceBallMain-left-this-BTSpredicted" width="70" height="70" style="display:inline-block;" src="">
+                                                                </div>
+                                                            </td>
+                                                            <td style="width:150px;">
+                                                                <div class="photoThumb">
+                                                                    <img id="miniface_This-BTSpredicted" width="150" height="150" src="">
+                                                                </div>
+                                                            </td>
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                                    <img id="choiceBallMain-right-this-BTSpredicted" width="70" height="70" style="display:inline-block;" src="">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="BTS_predicted_thisPlayDecisionOptions" class="confidence-selector">
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr height="30">
+                                        </tr>
+                                        <tr height="25">
+                                            <td>
+                                                Possible Pot Size
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div id="potSizePlayOptions" class="confidence-selector" style="text-align: center;">
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+-->
+
+
+
+
+                                <table id="responseTableFrameID" class="responseTableFrame" border="0" cellspacing="0" style="height:0;">
+                                    <tbody>
+                                    	<tr><td>
+                                    		<div id="BTS_predicted_title" class="BTS-predicted"></div>
+                                            <div id="BTS_actual_title" class="BTS-actual"></div>
+                                    	</td></tr>
+                                        <tr>
+                                            <td>
+                                                <div class="divTableCell" style="width:1000px;">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr style="width:100%;">
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                                    <img id="choiceBallMain-left-other" width="70" height="70" src=""></td>
+                                                            <!--                                                                     
+                                                                    <div id="splitBallOptions1" style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: relative; top: 0; left: 0; margin: 0 auto; display:inline-block;">
+                                                                    <img id="OtherSplitBall" width="150" height="150" style="display: inline-block;" src="images/SplitBall.png">
+                                                                    <img id="OtherStoleBall" width="150" height="150" style="display: none;" src="images/StoleBall.png"></div> -->
+                                                            </div>
+                                            </td>
+                                            <td style="width:150px;">
+                                                <div class="photoThumb">
+                                                    <img id="miniface_Other" width="150" height="150" src="">
+                                                </div>
+                                            </td>
+                                            <td style="width:470px; vertical-align:bottom;">
+                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                    <img id="choiceBallMain-right-other" width="70" height="70" src="">
+                                                    <!--
+                                                                    <div id="splitBallOptions1" style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: relative; top: 0; left: 0; margin: 0 auto; display:inline-block;">
+                                                                    <img id="OtherSplitBall" width="150" height="150" style="display: inline-block;" src="images/SplitBall.png">
+                                                                    <img id="OtherStoleBall" width="150" height="150" style="display: none;" src="images/StoleBall.png"></div> -->
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        </tbody>
+                                            </table>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            	<div id="BTS_predicted_otherPlayDecisionOptions" class="confidence-selector BTS-predicted">
+
+                                                    <table border="0" align="center" cellpadding="0" cellspacing="0" class="responsesTable" style="height: 70px;">
+                                                        <tbody>
+                                                            <tr style="visibility: hidden;">
+                                                                <td width="0" class="outsideEmotionLabels restText" style="text-align: left; vertical-align: middle;"><strong>&nbsp;</strong></td>
+                                                                <td height="5"><span>100&nbsp;</span></td>
+                                                                <td height="5"><span class="eFloor">split&nbsp;</span></td>
+                                                                <td style="width: 301; text-align: center; vertical-align: middle;"></td>
+                                                                <td height="5"><span class="eCeiling">&nbsp;steal</span></td>
+                                                                <td height="5"><span class="eCeiling">&nbsp;100</span></td>
+                                                            </tr>
+                                                            <tr class="confidenceRatingRow">
+                                                                <td class="outsideEmotionLabels restText" style="width: 0; text-align: left; vertical-align: middle;"><strong>other workers&nbsp;</strong></td>
+                                                                <td style="text-align: left; height: 25px;"><span class="eFloorPercent" style="text-align: center;"> &nbsp;</span></td>
+                                                                <td style="text-align: right; height: 25px;"><span class="eFloor"> &nbsp;</span></td>
+                                                                <td style="width: 301px; text-align: center; vertical-align: middle;">
+                                                                    <div class="slider">
+                                                                        <label id="slider-label-o1" class="slider-label-not-clicked isCenter">other workers</label>
+                                                                        <input id="confidenceOther" class="not-clicked" type="range" min="0" value="50" max="100">
+                                                                    </div>
+                                                                </td>
+                                                                <td style="text-align: left; height: 25px;"><span class="eCeiling"> &nbsp;</span></td>
+                                                                <td style="text-align: left; height: 25px;"><span class="eCeilingPercent" style="text-align: center;"> &nbsp;</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                        
+
+
+
+
+
+
+
+
+
+
+                                                </div>
+
+                                                <div id="BTS_actual_otherPlayDecisionOptions" class="confidence-selector BTS-actual">
+                                                    <!--
+                                                                    <input id="Other_C2" type="radio" name="otherPlayer-confidence" value="0" />
+                                                                    <label class="confidece-image C2" for="Other_C2"></label>
+                                                                    <input id="Other_C1" type="radio" name="otherPlayer-confidence" value="1" />
+                                                                    <label class="confidece-image C1" for="Other_C1"></label>
+                                                                    <input id="Other_C0" type="radio" name="otherPlayer-confidence" value="2" />
+                                                                    <label class="confidece-image C0" for="Other_C0"></label>
+                                                                    <input id="Other_D0" type="radio" name="otherPlayer-confidence" value="3" />
+                                                                    <label class="confidece-image D0" for="Other_D0"></label>
+                                                                    <input id="Other_D1" type="radio" name="otherPlayer-confidence" value="4" />
+                                                                    <label class="confidece-image D1" for="Other_D1"></label>
+                                                                    <input id="Other_D2" type="radio" name="otherPlayer-confidence" value="5" />
+                                                                    <label class="confidece-image D2" for="Other_D2"></label>
+                                                                    -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; line-height: 100%;">
+
+<div id="BTS_predicted_instructions" class="BTS-predicted" style="border-style: solid; border-width: 2px; padding: 2px 2px 2px 2px;">Out of 100 MTURK participants who previously took this quiz, how many thought that each contestant chose Split/Steal? 
+<!-- Adjust the sliders to indicate how many MTURK workers thought that the contestant chose 'split' and how many thought that the contestant chose 'steal'. -->
+</div>
+<div id="BTS_actual_instructions" class="BTS-actual" style="border-style: solid; border-width: 2px; padding: 2px 2px 2px 2px;">What do you think that each contestant chose and how confident are you in your guess?</div>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="divTableCell" style="width:1000px;">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr style="width:100%;">
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                                    <img id="choiceBallMain-left-this" width="70" height="70" style="display:inline-block;" src="">
+                                                                </div>
+                                                            </td>
+                                                            <td style="width:150px;">
+                                                                <div class="photoThumb">
+                                                                    <img id="miniface_This" width="150" height="150" src="">
+                                                                </div>
+                                                            </td>
+                                                            <td style="width:470px; vertical-align:bottom;">
+                                                                <div style="background-image:url(images/MaskBall.png); background-repeat:no-repeat; background-size:70px 70px; width: 70px; height: 70px; position: margin: 0 auto; display:inline-block;">
+                                                                    <img id="choiceBallMain-right-this" width="70" height="70" style="display:inline-block;" src="">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            	<div id="BTS_predicted_thisPlayDecisionOptions" class="confidence-selector BTS-predicted">
+
+                                                    <table border="0" align="center" cellpadding="0" cellspacing="0" class="responsesTable" style="height: 70px;">
+                                                        <tbody>
+                                                            <tr style="visibility: hidden;">
+                                                                <td width="0" class="outsideEmotionLabels restText" style="text-align: left; vertical-align: middle;"><strong>&nbsp;</strong></td>
+                                                                <td height="5"><span>100&nbsp;</span></td>
+                                                                <td height="5"><span class="eFloor">split&nbsp;</span></td>
+                                                                <td style="width: 301; text-align: center; vertical-align: middle;"></td>
+                                                                <td height="5"><span class="eCeiling">&nbsp;steal</span></td>
+                                                                <td height="5"><span class="eCeiling">&nbsp;100</span></td>
+                                                            </tr>
+                                                            <tr class="confidenceRatingRow">
+                                                                <td class="outsideEmotionLabels restText" style="width: 0; text-align: left; vertical-align: middle;"><strong>other workers&nbsp;</strong></td>
+                                                                <td style="text-align: left; height: 25px;"><span class="eFloorPercent" style="text-align: center;"> &nbsp;</span></td>
+                                                                <td style="text-align: right; height: 25px;"><span class="eFloor"> &nbsp;</span></td>
+                                                                <td style="width: 301px; text-align: center; vertical-align: middle;">
+                                                                    <div class="slider">
+                                                                        <label id="slider-label-o2" class="slider-label-not-clicked isCenter">other workers</label>
+                                                                        <input id="confidenceThis" class="not-clicked" type="range" min="0" value="50" max="100">
+                                                                    </div>
+                                                                </td>
+                                                                <td style="text-align: left; height: 25px;"><span class="eCeiling"> &nbsp;</span></td>
+                                                                <td style="text-align: left; height: 25px;"><span class="eCeilingPercent" style="text-align: center;"> &nbsp;</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+                                                <div id="BTS_actual_thisPlayDecisionOptions" class="confidence-selector BTS-actual">
+                                                    <!--
+                                                                    <input id="This_C2" type="radio" name="thisPlayer-confidence" value="0" />
+                                                                    <label class="confidece-image C2" for="This_C2"></label>
+                                                                    <input id="This_C1" type="radio" name="thisPlayer-confidence" value="1" />
+                                                                    <label class="confidece-image C1" for="This_C1"></label>
+                                                                    <input id="This_C0" type="radio" name="thisPlayer-confidence" value="2" />
+                                                                    <label class="confidece-image C0" for="This_C0"></label>
+                                                                    <input id="This_D0" type="radio" name="thisPlayer-confidence" value="3" />
+                                                                    <label class="confidece-image D0" for="This_D0"></label>
+                                                                    <input id="This_D1" type="radio" name="thisPlayer-confidence" value="4" />
+                                                                    <label class="confidece-image D1" for="This_D1"></label>
+                                                                    <input id="This_D2" type="radio" name="thisPlayer-confidence" value="5" />
+                                                                    <label class="confidece-image D2" for="This_D2"></label>
+                                                                    -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr height="15">
+                                        </tr>
+                                        <tr>
+                                        	<td>
+                                        		<table style="width:100%"><tbody><tr><td style="width: 50%; text-align: right;">
+                                        			Your guess
+                                        		</td>
+                                        		<td>
+												<!-- Rectangular switch -->
+												<label class="switch">
+												  <input id="BTS_toggle" type="checkbox">
+												  <span class="toggle"></span>
+												</label>
+											</td>
+											<td style="width: 50%; text-align: left; line-height: 120%;">
+												What you think other <br>people guessed
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+                                        	</td>
+                                        </tr>
+<!--                                         <tr>
+                                            <td>
+                                                <div id="potSizePlayOptions" class="confidence-selector" style="text-align: center;">
+                                                    <input id="Pot_small" type="radio" name="potSize-estimate" style="background-image:url(images/C0.jpg);" value="0" />
+                                                    <label class="drinkcard-cc visa" for="visa"></label>
+                                                    <input id="Pot_medium" type="radio" name="potSize-estimate" value="1" />
+                                                    <label class="drinkcard-cc visa" for="visa"></label>
+                                                    <input id="Pot_large" type="radio" name="potSize-estimate" value="2" />
+                                                    <label class="drinkcard-cc visa" for="visa"></label>
+                                                </div>
+                                            </td>
+                                        </tr> -->
+                                        <!--  
+                                                        <tr id="responseTableHeader1">
+                                                            <td width="0" height="25" class="outsideEmotionLabels restText">&nbsp;</td>
+                                                            <td colspan="3" height="25" align="center" valign="middle" style="white-space: nowrap;" class="ratingAnchors">
+                                                                <table>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td height="25" align="right" valign="middle" style="white-space: nowrap;" class="ratingAnchors"><em>not&nbsp;at&nbsp;all&nbsp;</em></td>
+                                                                            <td width="290" height="25">&nbsp;</td>
+                                                                            <td height="25" align="right" valign="middle" style="white-space: nowrap;" class="ratingAnchors"><em>&nbsp;extremely</em></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table> 
+                                                            </td>
+                                                        </tr>
+                                                    -->
+                                        <!--
+                                                        <tr id="responseTableHeader2">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>&nbsp;</strong></td>
+                                                            <td height="5"><span class="eFloor">not&nbsp;at&nbsp;all&nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301"></td>
+                                                            <td height="5"><span class="eCeiling">&nbsp;extremely</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Annoyed&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e1" class="slider-label-not-clicked isCenter">Annoyed</label>
+                                                                    <input id="e1" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Apprehensive&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e2" class="slider-label-not-clicked isCenter">Apprehensive</label>
+                                                                    <input id="e2" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Contemptuous&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e3" class="slider-label-not-clicked isCenter">Contemptuous</label>
+                                                                    <input id="e3" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Content&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e4" class="slider-label-not-clicked isCenter">Content</label>
+                                                                    <input id="e4" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Devastated&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e5" class="slider-label-not-clicked isCenter">Devastated</label>
+                                                                    <input id="e5" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Disappointed&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e6" class="slider-label-not-clicked isCenter">Disappointed</label>
+                                                                    <input id="e6" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Disgusted&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e7" class="slider-label-not-clicked isCenter">Disgusted</label>
+                                                                    <input id="e7" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Embarrassed&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e8" class="slider-label-not-clicked isCenter">Embarrassed</label>
+                                                                    <input id="e8" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Excited&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e9" class="slider-label-not-clicked isCenter">Excited</label>
+                                                                    <input id="e9" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Furious&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e10" class="slider-label-not-clicked isCenter">Furious</label>
+                                                                    <input id="e10" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Grateful&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e11" class="slider-label-not-clicked isCenter">Grateful</label>
+                                                                    <input id="e11" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Guilty&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e12" class="slider-label-not-clicked isCenter">Guilty</label>
+                                                                    <input id="e12" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Hopeful&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e13" class="slider-label-not-clicked isCenter">Hopeful</label>
+                                                                    <input id="e13" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Impressed&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e14" class="slider-label-not-clicked isCenter">Impressed</label>
+                                                                    <input id="e14" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Jealous&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e15" class="slider-label-not-clicked isCenter">Jealous</label>
+                                                                    <input id="e15" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Joyful&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e16" class="slider-label-not-clicked isCenter">Joyful</label>
+                                                                    <input id="e16" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Proud&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e17" class="slider-label-not-clicked isCenter">Proud</label>
+                                                                    <input id="e17" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Relieved&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e18" class="slider-label-not-clicked isCenter">Relieved</label>
+                                                                    <input id="e18" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Surprised&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e19" class="slider-label-not-clicked isCenter">Surprised</label>
+                                                                    <input id="e19" class="not-clicked" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                        <tr class="emotionRatingRow">
+                                                            <td width="0" align="left" valign="middle" class="outsideEmotionLabels restText"><strong>Terrified&nbsp;</strong></td>
+                                                            <td height="25" style="text-align: right;"><span class="eFloor"> &nbsp;</span></td>
+                                                            <td align="center" valign="middle" width="301">
+                                                                <div class="slider">
+                                                                    <label id="slider-label-e20" class="slider-label-not-clicked isCenter">Terrified</label>
+                                                                    <input id="e20" class="not-clicked" name="e20" type="range" min="0" value="-1" max="48">
+                                                                </div>
+                                                            </td>
+                                                            <td height="25" style="text-align: left;"><span class="eCeiling"> &nbsp;</span></td>
+                                                        </tr>
+                                                    -->
+                                    </tbody>
+                                </table>
+                                </td>
+                                </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="divTableRow" style="height: 5px;">
+                            <div class="divTableCell">
+                            </div>
+                            <div class="divTableCell">
+                            </div>
+                            <div class="divTableCell">
+                            </div>
+                        </div>
+                        <div class="divTableRow" style="vertical-align:middle;">
+                            <div class="divTableCell">
+                                <div class="progress" id="progressBar">
+                                    <div class="bar-wrapper">
+                                        <div class="bar"></div>
+                                    </div>
+                                    <span>Progress: <span id="trial-num">{{}}</span><span>/</span><span id="total-num">{{}}</span></span>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="divTableCell">
+                            </div>
+                            -->
+                            <div class="divTableCell">
+                                <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="120" height="40" align="center" valign="middle">
+                                                <div class="advance-button" onclick="this.blur(); if (ValidateRadios(['BTS_actual-otherPlayer-confidence','BTS_actual-thisPlayer-confidence']) && ValidateRanges('confidence-selector')) {maintask.next();}">NEXT</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="validation1" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame">Concluding slide 1 of 4:</h3>
+                <br>
+                <br>
+                <form name="validationForm1">
+                    <table border="0" align="center" cellpadding="5" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    Which of these emotions is most similar to feeling <b>contemptuous?</b></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                                        <tbody>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td><span style="max-width: 100px; text-align: left; margin: 0 auto;">
+                                                    <input type="radio" name="v1" value="respectful">
+                                                </span>Respectful</td>
+                                                <td><span style="max-width: 100px; text-align: left; margin: 0 auto;">
+                                                  <input type="radio" name="v1" value="envious">
+                                              </span>Envious</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td><span style="max-width: 100px; text-align: left; margin: 0 auto;">
+                                                <input type="radio" name="v1" value="disdainful">
+                                            </span>Disdainful</td>
+                                                <td><span style="max-width: 100px; text-align: left; margin: 0 auto;">
+                                              <input type="radio" name="v1" value="appreciative">
+                                          </span>Appreciative</td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <br>
+                <br>
+                <div class="advance-button" onclick="this.blur(); maintask.validate1( 'disdainful');">NEXT</div>
+                <br>
+                <br>
+            </div>
+            <div id="validation2" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame">Concluding slide 2 of 4:</h3>
+                <br>
+                <br>
+                <p>
+                    Which of these people is feeling the most <em><b>joyful</b></em>?
+                </p>
+                <form name="validationForm2">
+                    <table border="0" align="center" cellpadding="15" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img class="faceStimImg" alt="img1" src="images/AF14AFS.bmp">
+                                </td>
+                                <td>
+                                    <img class="faceStimImg" alt="img2" src="images/AF33ANS.bmp">
+                                </td>
+                                <td>
+                                    <img class="faceStimImg" alt="img3" src="images/AF11SAS.bmp">
+                                </td>
+                                <td>
+                                    <img class="faceStimImg" alt="img4" src="images/AF25HAS.bmp">
+                                </td>
+                                <!--                                 <td>
+                                    <img class="faceStimImg" alt="img5" src="images/AF30SAS.bmp">
+                                </td> -->
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="v2" value="AF14AFS">
+                                </td>
+                                <td>
+                                    <input type="radio" name="v2" value="AF33ANS">
+                                </td>
+                                <td>
+                                    <input type="radio" name="v2" value="AF11SAS">
+                                </td>
+                                <td>
+                                    <input type="radio" name="v2" value="AF25HAS">
+                                </td>
+                                <!--                                 <td>
+                                    <input type="radio" name="v2" value="AF30SAS">
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <br>
+                <br>
+                <div class="advance-button" onclick="this.blur(); maintask.validate2( 'AF25HAS');">NEXT</div>
+                <br>
+                <br>
+            </div>
+            <div id="final" class="slide stimPresSize whiteText">
+                <br>
+                <h3 class="block-text labFrame whiteText">Final Questions! (slide 3 of 3):</h3>
+                <br>
+                <br>
+                <form name="validationForm3">
+                    <table border="0" align="center" cellpadding="5" cellspacing="0" class="whiteText">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">
+                                    What is your gender?
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <div style="max-width: 100px; text-align: left; margin: 0 auto; white-space: nowrap;">
+                                        <input type="radio" name="d1" value="male"> male
+                                        <br>
+                                        <input type="radio" name="d1" value="female"> female
+                                        <br>
+                                        <input type="radio" name="d1" value="other"> other
+                                    </div>
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    Did you recognize any of the videos or images from this HIT and, if so, from where?</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <textarea id="val_recognized" class="textResponse" col="300" rows="1" maxlength="500" name="val_recognized"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <br>
+                                    <b>Optional Questions:</b>
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    What is your first language?
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <textarea id="dem_language" class="textResponse" col="300" rows="1" maxlength="200" name="dem_language"></textarea>
+                                    <br>
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    Do you have any feedback for us about this HIT?
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <textarea id="val_feedback" class="textResponse" col="300" rows="1" maxlength="200" name="val_feedback"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    If you would like to potentialy be invited to participate in our future studies (e.g. if you scored particularly high on this one), please enter your email here (this is strictly voluntary and will not affect your payment for this HIT):
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <textarea id="val_email" class="textResponse" col="300" rows="1" maxlength="200" name="val_email"></textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <br>
+                <br>
+                <div class="advance-button" onclick="this.blur(); maintask.end();">NEXT</div>
+                <br>
+                <br>
+            </div>
+            <div class="slide" id="finished">
+                <br>
+                <h1>Please wait. <br><br>Your results are being submitted.</h1>
+                <br>
+                <br>
+                <p id="pietimerelement" style="height: 230px;"></p>
+                <p>&nbsp;</p>
+            </div>
+            <div class="slide" id="exit">
+                <br>
+                <h2>Your results have been successfully submitted.</h2>
+                <br>
+                <h2>Thanks for your help!</h2>
+                <p>&nbsp;</p>
+            </div>
+            <!-- middle div -->
+        </div>
+        <!-- outer div -->
+    </div>
+    <!-- Mask Div for loading -->
+    <div id="loadingMask" class="outer blackBG" style="z-index: 998;"></div>
+    <!-- WHY IS THIS LOADINMASK AN ISSUE?? -->
+    <!-- Mask Div preventing user clicks -->
+    <div id="interactionMask" class="outer interactionStopperClass nocursor" style="z-index: 999;"></div>
+    <script type="text/javascript" src="experiment.js"></script>
+</body>
+
+</html>

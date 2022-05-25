@@ -1,0 +1,24 @@
+### conda update -n base -c conda-forge conda
+### conda env create -f environment.yml
+name: envemoreas
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - jupyterlab
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scipy
+  - scikit-learn
+  - statsmodels
+  - conda-lock
+  - autopep8
+  - pip
+  - pip:
+    - torch
+platforms:
+  - osx-arm64
+  - linux-64
+

@@ -1,0 +1,19 @@
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - jupyterlab
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - pytorch::pytorch
+  - scipy
+  - scikit-learn
+  - statsmodels
+  - conda-lock
+  - autopep8
+  - pip
+platforms:
+  - linux-64
+

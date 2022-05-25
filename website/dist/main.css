@@ -1,0 +1,127 @@
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/styles/base.scss ***!
+  \*************************************************************************************************************************************************************************************/
+.outer {
+  display: table;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+  overflow: visible;
+}
+
+.slideDiv {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: visible;
+}
+.slideDiv.slide-hidden {
+  display: none;
+}
+.slideDiv.slide-focused {
+  display: block;
+  visibility: visible;
+}
+
+/* unvisited link */
+a:link {
+  color: #9ac2fd;
+}
+
+/* visited link */
+a:visited {
+  color: #9ac2fd;
+}
+
+/* mouse over link */
+a:hover {
+  color: #b0ddfc;
+}
+
+/* selected link */
+a:active {
+  color: #4f96ff;
+}
+
+.divTable {
+  display: table;
+}
+
+.divTableBody {
+  display: table-row-group;
+}
+
+.divTableRow {
+  display: table-row;
+}
+
+.divTableCell {
+  display: table-cell;
+}
+
+.interactionStopperClass {
+  pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 999;
+}
+
+.nocursor {
+  cursor: none;
+}
+
+.foremost {
+  z-index: 998;
+}
+
+body {
+  text-align: center;
+  color: white;
+  font-family: "Muli", sans-serif;
+}
+
+.blackBG {
+  background-color: black;
+}
+
+div.textbox {
+  text-align: center;
+  color: white;
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1000px;
+  min-width: 400px;
+}
+
+img.scaledown {
+  max-width: 800px;
+  max-height: 400px;
+  object-fit: scale-down;
+}
+
+#summaryfig {
+  height: 600px;
+  width: auto;
+}
+
+div.videoframe {
+  border-radius: 25px;
+  margin: 0 auto;
+  border: 5px solid #636363;
+  padding: 0;
+  width: 810px;
+  height: 576px;
+  z-index: 999;
+  overflow: hidden;
+}

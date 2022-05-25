@@ -1,0 +1,12 @@
+*-gitignore
+*_gitignore
+*-gitignore.*
+*_gitignore.*
+**/.texpadtmp/
+**/.idea/
+**/node_modules/
+**/.vscode/
+**/.ipynb_checkpoints/
+**/__pycache__/
+website/src/stimuli/dynamics
+website/dist/*.mp4
