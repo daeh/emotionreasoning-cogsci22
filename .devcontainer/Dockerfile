@@ -1,6 +1,6 @@
 # Dockerfile
 
-FROM --platform=linux/arm64 debian:bullseye-slim
+FROM --platform=linux/amd64 debian:bullseye-slim
 
 # Docker default of `/bin/sh` doesn't support `source`
 SHELL ["/bin/bash", "-c"]
@@ -43,8 +43,8 @@ RUN conda clean --force-pkgs-dirs --all --yes
 ### Setup conda env
 
 ### Create conda env from lockfile
-COPY conda-linux-aarch64.lock /imgbase/conda-linux-aarch64.lock
-RUN conda create --name emoreasenv --file /imgbase/conda-linux-aarch64.lock
+COPY conda-linux-64.lock /imgbase/conda-linux-64.lock
+RUN conda create --name emoreasenv --file /imgbase/conda-linux-64.lock
 RUN conda clean --all --yes
 
 RUN echo ". ${CONDA_DIR}/etc/profile.d/conda.sh && conda activate emoreasenv" >> /etc/skel/.bashrc

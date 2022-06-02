@@ -1,7 +1,8 @@
 ### conda env create -f environment.yml
 name: emoreasenv
 channels:
-  - pytorch
+  # - pytorch
+  # - kumatea
   - conda-forge
 dependencies:
   - python
@@ -14,10 +15,10 @@ dependencies:
   - statsmodels
   - matplotlib
   - seaborn
-  - pytorch::pytorch
+  - pytorch
   - conda-lock
+  # - kumatea::numpy
+  # - kumatea::pytorch
   - pip
 platforms:
-  - osx-arm64
-  - linux-64
-
+  - linux-aarch64

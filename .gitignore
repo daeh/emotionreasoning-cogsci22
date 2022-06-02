@@ -10,3 +10,5 @@
 **/__pycache__/
 website/src/stimuli/dynamics
 website/dist/*.mp4
+website/dist/main.bundle.js.LICENSE.txt
+figs/test-texplot.pdf

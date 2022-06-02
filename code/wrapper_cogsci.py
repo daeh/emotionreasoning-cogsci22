@@ -72,6 +72,21 @@ def init_config(base_path_str=None, isInteractive=False):
     return plotParam, paths, data_load_param
 
 
+def plot_test(plotParam, paths):
+    from plot_fun import printFigList
+    print("Starting plot_test")
+    plt = plotParam['plt']
+    nrows, ncols = 1, 1
+    fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=(4 * ncols, 2 * nrows), constrained_layout=True)
+    ax.plot([0, 1, 2], [0, 1, 0.5])
+    ax.set_title('$\mathbb{E}[\mathbf{e} \,{;}\, c,a]$ typing')
+    fname = f"test-texplot.pdf"
+    figsout = [(paths['figsOut'] / fname, fig, True)]
+    plt.close(fig)
+    figsout = printFigList(figsout, {'plt': plt, 'isInteractive': True, 'showAllFigs': True})
+    print("Finished plot_test")
+
+
 def main(projectdir=None):
 
     import numpy as np
@@ -97,6 +112,10 @@ def main(projectdir=None):
     seed = 1
 
     print(f"\nBeginning run in {paths['expDir']}\n")
+
+    # %%
+
+    plot_test(plotParam, paths)
 
     # %%
     """
