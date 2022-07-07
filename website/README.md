@@ -36,9 +36,11 @@ npm install --save-dev @babel/core @babel/preset-env babel-loader copy-webpack-p
 
 ## Push changes
 
-```sh
+```zsh
+#wpspec="produce"
+#wpspec="build"
 cd "${HOME}/coding/-GitRepos/itegb_cuecomb_cogsci2022/website" || exit
-npm run build
+npm run "${wpspec}"
 
 rm -r "${HOME}/coding/-GitRepos/daehinfo_website/jekyll-TeXt-theme-master/p/emotionreasoning-cogsci2022"
 

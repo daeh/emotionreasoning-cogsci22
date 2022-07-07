@@ -6,7 +6,7 @@
 
 ## Project repository
 
-This repository provides all of the raw behavioral data, analyses, and models related to the 2022 CogSci talk & [paper](https://daeh.info/assets/pubs/houlihan2022emotionreasoning.pdf),
+This repository provides all of the raw behavioral data, analyses, and models related to the 2022 CogSci talk & [paper](https://escholarship.org/uc/item/7sn3w3n2),
 
 Houlihan SD, Ong D, Cusimano M, Saxe R. (2022). Reasoning about the antecedents of emotions: Bayesian causal inference over an intuitive theory of mind. In *Proceedings of the 44th Annual Conference of the Cognitive Science Society*. 
 
@@ -19,6 +19,7 @@ If you use this repository, the data it includes, or build on the models/analyse
   booktitle = {Proceedings of the 44th {{Annual Conference}} of the {{Cognitive Science Society}}},
   author = {Houlihan, Sean Dae and Ong, Desmond and Cusimano, Maddie and Saxe, Rebecca},
   date = {2022},
+  pages = {854--861},
   eventtitle = {{{CogSci}}}
 }
 ```
