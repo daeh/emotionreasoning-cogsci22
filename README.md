@@ -20,7 +20,7 @@ This repository provides all of the raw behavioral data, analyses, and models re
 If you use this repository, the data it includes, or build on the models/analyses, please cite the paper (NB citation given in Bib***La***Tex):
 
 ```BibTeX
-@inproceedings{houlihan2022emoreasoning,
+@inproceedings{houlihan2022emotionreasoning,
   title = {Reasoning about the antecedents of emotions: {{Bayesian}} causal inference over an intuitive theory of mind},
   shorttitle = {Causal reasoning over emotions},
   booktitle = {Proceedings of the 44th {{Annual Conference}} of the {{Cognitive Science Society}}},
@@ -28,6 +28,7 @@ If you use this repository, the data it includes, or build on the models/analyse
   date = {2022},
   volume = {44},
   pages = {854--861},
+  url = {https://escholarship.org/uc/item/7sn3w3n2},
   eventtitle = {{{CogSci}}}
 }
 ```
