@@ -17,13 +17,13 @@ This repository provides all of the raw behavioral data, analyses, and models re
 
 ## Citing the work
 
-If you use this repository, the data it includes, or build on the models/analyses, please cite the paper (NB citation given in Bib***La***Tex):
+If you use this repository, the data it includes, or build on the models/analyses, please cite the paper (NB citation given in Bib***La***TeX):
 
 ```BibTeX
 @inproceedings{houlihan2022emotionreasoning,
-  title = {Reasoning about the antecedents of emotions: {{Bayesian}} causal inference over an intuitive theory of mind},
-  shorttitle = {Causal reasoning over emotions},
-  booktitle = {Proceedings of the 44th {{Annual Conference}} of the {{Cognitive Science Society}}},
+  title = {Reasoning about the Antecedents of Emotions: {{Bayesian}} Causal Inference over an Intuitive Theory of Mind},
+  shorttitle = {Causal Reasoning over Emotions},
+  booktitle = {Proceedings of the {{Annual Meeting}} of the {{Cognitive Science Society}}},
   author = {Houlihan, Sean Dae and Ong, Desmond and Cusimano, Maddie and Saxe, Rebecca},
   date = {2022},
   volume = {44},
